@@ -1,13 +1,12 @@
 function minesweeper(width, height, number) {
-    let numberOfMines = number + 1;
+    let numberOfMines = number;
     const result = [];
   
     for (let index = 0; index < height; index++) {
       const array = [];
       for (let index = 0; index < width; index++) {
-        const square = getRandomInt(numberOfMines);
-        
-        if (square != 0) {
+        const setMine = getRandomInt();
+        if (setMine === true && numberOfMines > 0) {
           numberOfMines--;
           array.push('bomb');
         } else {
@@ -24,6 +23,7 @@ function validateBombFieldsPerRow(array) {
     for (const index in array) {
         let number = 0;
         let nextValue = Number(index) + 1;
+
         if (array[index] === 'bomb') {
             continue;
         }
@@ -61,10 +61,11 @@ function validateBombFieldsPerColumn(fullArray, maxWidth) {
     return fullArray;
 }
   
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
+function getRandomInt(max = 10) {
+    const result =  Math.floor(Math.random() * max);
+    return result > 5;
 }
 
-const result = minesweeper(6, 6, 10);
+const result = minesweeper(6, 6, 15);
 
 console.log(result);
